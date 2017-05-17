@@ -8,6 +8,7 @@ and open the template in the editor.
     <head>
         <link rel="stylesheet" href="indexTable.css" type="text/css"/>
         <link rel="stylesheet" href="indexTable.css" type="text/css">
+		<script type="text/javascript" src="../jquery-3.2.1.js"></script>
 
         <title>Fine Whine matrix</title>
         <meta charset="UTF-8">
@@ -33,13 +34,11 @@ and open the template in the editor.
 	}
 </style>
 
-
-
 <table class = "demo" id = "fwtable">
 	<caption>State of DevOps and Engineering </caption>
 	<thead>
 	<tr>
-		<th>Theme</th>
+		<th>Theme </th>
 		<th>Key Indicator</th>
 		<th>Score</th>
 		<th>Early days </th>
@@ -52,7 +51,7 @@ and open the template in the editor.
 	<tr>
 		<td>&nbsp;Culture</td>
 		<td>&nbsp;Leadership is supportive</td>
-		<td>&nbsp;</td>
+		<td class = "score1"> &nbsp;</td>
 		<td>not aware&nbsp;</td>
 		<td>pay lip service&nbsp;</td>
 		<td>&nbsp;pockets of support</td>
@@ -61,7 +60,7 @@ and open the template in the editor.
 	<tr>
 		<td>&nbsp;Culture</td>
 		<td>&nbsp;Culture of Innovation and learning&nbsp;</td>
-		<td>&nbsp;</td>
+		<td class = "score2" > &nbsp;</td>
 		<td>&nbsp;silos</td>
 		<td>&nbsp;pockets of change</td>
 		<td>&nbsp;at least 50% of portfolios have adopted new ways of working</td>
@@ -70,7 +69,7 @@ and open the template in the editor.
 	<tr>
 		<td>&nbsp;Engineering&nbsp;</td>
 		<td>&nbsp;Test automation</td>
-		<td>&nbsp;</td>
+		<td class = "score3" > &nbsp;</td>
 		<td>&nbsp;what?</td>
 		<td>&nbsp;some teams have started focusing on  test automation</td>
 		<td>&nbsp;at least 30% consistent automation coverage across teams</td>
@@ -79,8 +78,8 @@ and open the template in the editor.
 	<tr>
 		<td>&nbsp;Engineering&nbsp;</td>		
 		<td>&nbsp;Modern Development practices</td>
-		<td>&nbsp;</td>
-                <td>&nbsp;primitive ways</td>
+		<td class = "score4" > &nbsp;</td>
+        <td>&nbsp;primitive ways</td>
 		<td>&nbsp;some modern techniques being explored</td>
 		<td>&nbsp;at least 30% consistent application of engineering practices such as TDD</td>
 		<td>&nbsp;&nbsp;at least 80% consistent application of engineering practices such as TDD</td>
@@ -88,7 +87,7 @@ and open the template in the editor.
 	<tr>
 		<td>&nbsp;Release</td>
 		<td>&nbsp;Release frequency&nbsp;</td>
-		<td></td>
+		<td class = "score5" > &nbsp;</td>
 		<td>&nbsp;yearly</td>
 		<td>&nbsp;quarterly</td>
 		<td>&nbsp;monthly</td>
@@ -97,7 +96,7 @@ and open the template in the editor.
 	<tr>
 		<td>&nbsp;Quality&nbsp;</td>
 		<td>&nbsp;Ownership of quality&nbsp;</td>
-		<td>&nbsp;</td>
+		<td class = "score6"> &nbsp;</td>
 		<td>&nbsp;testing problem</td>
 		<td>&nbsp;team problem</td>
 		<td>&nbsp;developers own quality</td>
@@ -105,5 +104,79 @@ and open the template in the editor.
 	</tr>
 	<tbody>
 </table>
-    </body>
+</body>
+
+
+<script type="text/javascript">
+
+window.addEventListener('load', function () {
+
+	$(document).ready(function() {
+		console.log("jquery 1");
+
+		$('td').click(function() {
+		    var myCol = $(this).index();
+		    var $tr = $(this).closest('tr');
+		    //console.log("jquery data row number: dump of this "+ this);
+		    var myRow = $tr.index();
+   			console.log("jquery data row number: " + myRow + "column number:  "+ myCol +"dump of this: "+this);
+   			$(this).css("font-weight","bold");
+   			$( this ).css( "color", "red" );
+		
+		
+			switch((myRow+1)) {
+				case 1:
+					$('#fwtable td.score1').html((myCol-2)) ;
+				    break;
+				case 2:
+					$('#fwtable td.score2').html((myCol-2)) ;
+				    break;
+				case 3:
+					$('#fwtable td.score3').html((myCol-2)) ;
+				    break;
+				case 4:
+					$('#fwtable td.score4').html((myCol-2)) ;
+				    break;
+				case 5:
+				    $('#fwtable td.score5').html((myCol-2)) ;
+				    break;				
+				case 6:
+					$('#fwtable td.score6').html((myCol-2)) ;
+				    break;
+
+				default:
+				    console.log("from default");
+			}
+
+		  
+		
+		//	var scorelist2 = (document.getElementsByClassName("#fwtable td.score"));
+		//	console.log("jquery dump of scorelist2: " + scorelist2 + "length: " + scorelist2.length );
+		
+		
+		});
+   			//$('tr#fwtable td').innerHtml = "";
+	});
+
+		/*
+
+		$("tr#fwtable td").click(function(e){     //function_td
+			console.log("jquery 2");
+		    $(this).css("font-weight","bold");
+		  e.stopPropagation();
+		});
+		
+		*/
+});
+
+/*Reserve
+$(document).ready(function() {
+		console.log("inside jqery test");
+		 $("#msgid").html("This is Hello World for JQuery - Remove me when done!!");
+	});
+*/
+
+</script>
+
+    
 </html>
