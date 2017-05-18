@@ -41,10 +41,10 @@ and open the template in the editor.
 		<th>Theme </th>
 		<th>Key Indicator</th>
 		<th>Score</th>
-		<th>Early days </th>
-		<th>Well defined</th>
-		<th>Adoption in progress</th>
-		<th>Optimised Karma</th>
+		<th>L1-Early days </th>
+		<th>L2-Well defined</th>
+		<th>L3-Adoption in progress</th>
+		<th>L4-Optimised Karma</th>
 	</tr>
 	</thead>
 	<tbody>
@@ -114,60 +114,56 @@ window.addEventListener('load', function () {
 	$(document).ready(function() {
 		console.log("jquery 1");
 
-		$('td').click(function() {
-		    var myCol = $(this).index();
+		$('td').click(function() {		
+			var myCol = $(this).index();
 		    var $tr = $(this).closest('tr');
 		    //console.log("jquery data row number: dump of this "+ this);
 		    var myRow = $tr.index();
-   			console.log("jquery data row number: " + myRow + "column number:  "+ myCol +"dump of this: "+this);
-   			$(this).css("font-weight","bold");
-   			$( this ).css( "color", "red" );
 		
-		
-			switch((myRow+1)) {
-				case 1:
-					$('#fwtable td.score1').html((myCol-2)) ;
-				    break;
-				case 2:
-					$('#fwtable td.score2').html((myCol-2)) ;
-				    break;
-				case 3:
-					$('#fwtable td.score3').html((myCol-2)) ;
-				    break;
-				case 4:
-					$('#fwtable td.score4').html((myCol-2)) ;
-				    break;
-				case 5:
-				    $('#fwtable td.score5').html((myCol-2)) ;
-				    break;				
-				case 6:
-					$('#fwtable td.score6').html((myCol-2)) ;
-				    break;
-
-				default:
-				    console.log("from default");
+			if (myCol > 2) { 
+	   			console.log("jquery data row number: " + myRow + "column number:  "+ myCol +"dump of this: "+this);
+	   			$(this).css("font-weight","bold");
+	   			$( this ).css( "color", "red" );
+				setScore(myRow,myCol);
 			}
-
-		  
-		
-		//	var scorelist2 = (document.getElementsByClassName("#fwtable td.score"));
-		//	console.log("jquery dump of scorelist2: " + scorelist2 + "length: " + scorelist2.length );
-		
-		
+	
 		});
    			//$('tr#fwtable td').innerHtml = "";
 	});
 
-		/*
-
-		$("tr#fwtable td").click(function(e){     //function_td
-			console.log("jquery 2");
-		    $(this).css("font-weight","bold");
-		  e.stopPropagation();
-		});
 		
-		*/
 });
+
+
+
+function setScore( nRow, nCol) {
+
+				switch((nRow+1)) {
+					case 1:
+						$('#fwtable td.score1').html((nCol-2)) ;
+					    break;
+					case 2:
+						$('#fwtable td.score2').html((nCol-2)) ;
+					    break;
+					case 3:
+						$('#fwtable td.score3').html((nCol-2)) ;
+					    break;
+					case 4:
+						$('#fwtable td.score4').html((nCol-2)) ;
+					    break;
+					case 5:
+					    $('#fwtable td.score5').html((nCol-2)) ;
+					    break;				
+					case 6:
+						$('#fwtable td.score6').html((nCol-2)) ;
+					    break;
+
+					default:
+					    console.log("from default");
+				}
+
+
+}
 
 /*Reserve
 $(document).ready(function() {
