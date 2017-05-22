@@ -172,6 +172,56 @@ $(document).ready(function() {
 	});
 */
 
+	
+function updateDb (e) {
+	
+	var lock = LockService.getPublicLock();
+	lock.waitLock(30000);  // wait 30 seconds before conceding defeat.
+
+	 try {
+
+	    // next set where we write the data - you could write to multiple/alternate destinations
+		var gdoc = SpreadgsheetApp.openById("1ThppsMYaxkd9_gRGqTI1X-2cBJk3qhck9ooIfDH-VDU");
+		var gsheetname = "gsheet1";
+		var gsheet = gdoc.getgsheetByName(gsheetname);
+	    
+	    // we'll assume header is in row 1 but you can override with header_row in GET/POST data
+	    //var headRow = e.parameter.header_row || 1;  //repalce with data from html data 
+	    var headers = gsheet.getRange(1, 1, 1, gsheet.getLastColumn()).getValues()[0];
+	    var nextRow = gsheet.getLastRow()+1; // get next row
+	    var row = []; 
+
+	    // loop through the header columns
+	    for (i in headers){
+	      if (headers[i] == "Timestamp"){ // special case if you include a 'Timestamp' column
+	        row.push(new Date());
+	      } else { // else use header name to get data
+	        row.push(e.parameter[headers[i]]);
+	      }
+	    }
+		
+		// more efficient to set values as [][] array than individually
+	    gsheet.getRange(nextRow, 1, 1, row.length).setValues([row]);
+	    // return json success results
+	    return ContentService
+	          .createTextOutput(JSON.stringify({"result":"success", "row": nextRow}))
+	          .setMimeType(ContentService.MimeType.JSON);
+	} 
+	
+	catch(e){
+		// if error return this
+		return ContentService
+	      .createTextOutput(JSON.stringify({"result":"error", "error": e}))
+	      .setMimeType(ContentService.MimeType.JSON);
+		} 
+	
+		finally { //release lock
+		lock.releaseLock();
+		}
+
+}
+
+
 </script>
 
     
