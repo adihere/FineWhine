@@ -1,0 +1,11 @@
+{
+  "name": "persist-webapp",
+  "version": "1.0.0",
+  "description": "webapp to persist maturity scores into google sheets",
+  "main": "gistfile1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Martin Hawksey",
+  "license": "Apache-2.0"
+}
