@@ -104,6 +104,9 @@ and open the template in the editor.
 	</tr>
 	<tbody>
 </table>
+
+<input id="clickMe" type="button" value="clickme" onclick="updateDb();" />
+
 </body>
 
 
@@ -174,15 +177,18 @@ $(document).ready(function() {
 
 	
 function updateDb (e) {
-	
-	var lock = LockService.getPublicLock();
-	lock.waitLock(30000);  // wait 30 seconds before conceding defeat.
+	//var scriptprop = PropertiesService.getScriptProperties(); // new property service
+   //var doc = SpreadsheetApp.openById(scriptprop.getProperty("key"));
+
+	//var lock = LockService.getPublicLock();
+	//lock.waitLock(30000);  // wait 30 seconds before conceding defeat.
+	console.log("from update");
 
 	 try {
 
 	    // next set where we write the data - you could write to multiple/alternate destinations
 		var gdoc = SpreadgsheetApp.openById("1ThppsMYaxkd9_gRGqTI1X-2cBJk3qhck9ooIfDH-VDU");
-		var gsheetname = "gsheet1";
+		var gsheetname = "https://docs.google.com/spreadsheets/d/1ThppsMYaxkd9_gRGqTI1X-2cBJk3qhck9ooIfDH-VDU/edit#gid=0";
 		var gsheet = gdoc.getgsheetByName(gsheetname);
 	    
 	    // we'll assume header is in row 1 but you can override with header_row in GET/POST data
@@ -202,21 +208,17 @@ function updateDb (e) {
 		
 		// more efficient to set values as [][] array than individually
 	    gsheet.getRange(nextRow, 1, 1, row.length).setValues([row]);
-	    // return json success results
-	    return ContentService
-	          .createTextOutput(JSON.stringify({"result":"success", "row": nextRow}))
-	          .setMimeType(ContentService.MimeType.JSON);
+	  	  
 	} 
 	
 	catch(e){
 		// if error return this
-		return ContentService
-	      .createTextOutput(JSON.stringify({"result":"error", "error": e}))
-	      .setMimeType(ContentService.MimeType.JSON);
+			console.log("from catch") ;
 		} 
 	
 		finally { //release lock
-		lock.releaseLock();
+		//lock.releaseLock();
+			console.log("from finally") ;
 		}
 
 }
